@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<script th:inline="javascript">
+		var mensagens = ' ';
+
+		$.ajax({
+			dataType : "json",
+			url : "http://localhost:8080/mensagem/detalhe/json/usuario=Junior",
+			type : "get",
+
+			success : function(result) {
+
+				$.each(result, function(K, V) {
+					mensagens += '<div class="direct-chat-messages" style="min-height: 100% !important; height: 100% !Important;">	<div class="direct-chat-msg"><div class="direct-chat-info clearfix"><span class="direct-chat-name float-left">'+V.mensagem+'<span>';
+			
+			});
+				$('body').html($(mensagens));
+			},
+			error : function(result) {
+
+			}
+
+		});
+	</script>
+	
+	<ol class="chat" th:each="mensagem : ${mensagens}">
+					<li class="other">
+						<div th:if="${mensagem.author} == ${user}">
+							<div class="avatar">
+								<img src="https://i.imgur.com/DY6gND0.png" draggable="false" />
+							</div>
+							<div class="msg">
+								<p th:text="${mensagem.mensagem}"></p>
+
+								<time th:text="${mensagem.data}"></time>
+							</div>
+						</div>
+					</li>
+					<li class="self">
+						<div class="avatar">
+							<img src="https://i.imgur.com/HYcn9xO.png" draggable="false" />
+						</div>
+						<div class="msg">
+							<p>Puff...</p>
+							<p>
+								Aún estoy haciendo el contexto de Góngora...
+								<emoji class="books" />
+							</p>
+							<p>Mejor otro día</p>
+							<time>20:18</time>
+						</div>
+					</li>
+
+				</ol>
+	<div id="body"></div>
+</body>
+</html>

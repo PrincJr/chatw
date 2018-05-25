@@ -1,0 +1,278 @@
+<!DOCTYPE html >
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Layout}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/app.js"></script>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/	  
+	getMensagem([[${user}]] ,[[${usuarioLogado}]] );
+	var sizeOfArrray = ' ';
+	
+	/*window.setTimeout(function() {
+		getMensagem([[${user}]] ,[[${usuarioLogado}]]);
+		console.log('Size : '+  sizeOfArrray);
+	}, 1000);*/
+	// setTimeout(getMensagem([[${user}]] ,[[${usuarioLogado}]] , sizeOfArrray), 2000);
+	 
+	// Criando um intervalo
+	    var interval = setInterval(function () {
+	    	getMensagem([[${user}]] ,[[${usuarioLogado}]] , sizeOfArrray);
+	    	
+	    }, 1000/* 1s */);
+	function enviar(){
+
+		 //var usuario =
+		var mensagem = $('#mensagem-input').val();	
+		 var recebedor = [[${user}]] ;
+		 var author = [[${usuarioLogado}]] ;
+	
+		// PREPARE FORM DATA
+    	var mensage = {
+    			mensagem : mensagem,
+    			recebedor : recebedor
+    	}
+	
+		
+		$.ajax({	
+		url:"http://localhost:8080/mensagem/detalhe/json/",
+		type:"post",
+		 contentType: "application/json",
+		//nome do post no servidor
+		data: JSON.stringify(mensage),
+		 dataType: 'json',		        
+		success: function (result, status, request){	
+			var mensagens = ' ';
+			sizeOfArrray = result.length;
+			$
+			.each(
+					result,
+					function(K, V) {
+
+						if (V.author != author) {
+							mensagens += '<div class="direct-chat-msg">'
+									+ ' <div class="direct-chat-info clearfix">'
+									+ '<span class="direct-chat-name float-left">'
+									+ V.author
+									+ '</span>'
+									+ '<span class="direct-chat-timestamp float-right">'
+									+ V.data
+									+ '</span>'
+									+ '  </div>'
+									+ '<img class="direct-chat-img" src="/img/user1-128x128.jpg" alt="Message User Image">'
+									+ '<div class="direct-chat-text">'
+									+ V.mensagem
+									+ ' </div>'
+									+ ' </div>';
+
+						} else {
+							mensagens += '<div class="direct-chat-msg right">'
+									+ ' <div class="direct-chat-info clearfix">'
+									+ '<span class="direct-chat-name float-right">'
+									+ V.author
+									+ '</span>'
+									+ '<span class="direct-chat-timestamp float-lef">'
+									+ V.data
+									+ '</span>'
+									+ '  </div>'
+									+ '<img class="direct-chat-img" src="/img/user1-128x128.jpg" alt="Message User Image">'
+									+
+									'<div class="direct-chat-text">'
+									+ V.mensagem
+									+ ' </div></div>';
+						}
+
+					});
+			$("#contentM").html($(mensagens));
+		         },
+
+		          error: function(result, status, request) {
+		                //retorno caso der erro
+		        	  console.log('Erro ' + request);
+		             }
+		});
+	}
+	function getMensagem(user, usuarioLogado ) {
+		var mensagens = ' ';
+
+		
+		var x = document.getElementById("progress");
+		var playAudio = document.getElementById("playAudio");
+		$
+				.ajax({
+					dataType : 'json',
+					url : 'http://localhost:8080/mensagem/detalhe/json/usuario='
+							+ user,
+					type : 'get',
+					success : function(result) {
+						document.getElementById("progress").style.display = 'none';
+					//console.log('dado que vem : ' + result.length);
+					
+						if (sizeOfArrray == ' '){
+							sizeOfArrray = result.length;
+							each(result , usuarioLogado , mensagens);
+							
+						}else {
+							if (sizeOfArrray != result.length){
+							//	return localS.tostring().length;
+								playAudio.play();
+								sizeOfArrray = result.length;
+								each(result , usuarioLogado , mensagens);
+								
+							}
+							
+						}
+							
+					},
+					error : function(result) {
+						
+						console.log('Error result : ' + result);
+					}
+
+				});
+
+		
+	}
+	function each (result , usuarioLogado , mensagens){
+		$
+		.each(
+				result,
+				function(K, V) {
+
+					if (V.author != usuarioLogado) {
+						mensagens += '<div class="direct-chat-msg">'
+								+ ' <div class="direct-chat-info clearfix">'
+								+ '<span class="direct-chat-name float-left">'
+								+ V.author
+								+ '</span>'
+								+ '<span class="direct-chat-timestamp float-right">'
+								+ V.data
+								+ '</span>'
+								+ '  </div>'
+								+ '<img class="direct-chat-img" src="/img/user1-128x128.jpg" alt="Message User Image">'
+								+ '<div class="direct-chat-text">'
+								+ V.mensagem
+								+ ' </div>'
+								+ ' </div>';
+
+					} else {
+						mensagens += '<div class="direct-chat-msg right">'
+								+ ' <div class="direct-chat-info clearfix">'
+								+ '<span class="direct-chat-name float-right">'
+								+ V.author
+								+ '</span>'
+								+ '<span class="direct-chat-timestamp float-lef">'
+								+ V.data
+								+ '</span>'
+								+ '  </div>'
+								+ '<img class="direct-chat-img" src="/img/user1-128x128.jpg" alt="Message User Image">'
+								+
+
+								'<div class="direct-chat-text">'
+								+ V.mensagem
+								+ ' </div></div>';
+					}
+
+				});
+		$("#contentM").html($(mensagens));
+	}
+	
+  /*]]>*/
+</script>
+
+
+<title>Chat W-Informática</title>
+</head>
+<body>
+
+
+	<div layout:fragment="content">
+		<audio id="playAudio" autoplay>
+			<source src="/musica/toque.mp3" type="audio/mp3" />
+		</audio>
+		<div
+			class=" card card-primary card-outline direct-chat direct-chat-primary"
+			style="min-height: 100% !important; height: 100% !Important">
+			<div class="card-header">
+				<h3 class="card-title" th:text="${user}"></h3>
+
+			</div>
+
+			<!-- /.card-header -->
+			<div class="card-body">
+
+				<!-- Conversations are loaded here -->
+				<div class="direct-chat-messages"
+					style="min-height: 100% !important; height: 100% !Important;"
+					id="mensagemC">
+					<!-- Message. Default to the left -->
+					<center>
+						<div class="lds-css ng-scope" id="progress">
+							<div id="loading" class="lds-spinner" style="height: 100%">
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+					</center>
+					<div id="contentM"></div>
+
+
+
+
+				</div>
+				<!-- /.direct-chat-msg -->
+
+			</div>
+
+			<div class="card-footer">
+
+				<div class="input-group">
+					<input type="text" id="mensagem-input"
+						placeholder="Digite sua mensagem aqui .." autofocus
+						class="form-control"> <span class="input-group-append">
+
+						<button id="btn-enviar" onclick="enviar()" type="button"
+							class="btn btn-primary">Enviar</button>
+					</span>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script th:inline="javascript">
+  /*<![CDATA[*/	  
+
+	window.setTimeout(function() {
+		getMensagem([[${user}]] ,[[${usuarioLogado}]] );
+	}, 1000);
+	
+
+
+	
+	
+  /*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{Layout}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/main.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+<title>Chat W-Informática</title>
+</head>
+<body>
+
+
+	<div layout:fragment="container"></div>
+
+	<nav class="navbar navbar-light fixed-top  flex-md-nowrap p-0 shadow"
+		style="background-color: #512DA8;">
+		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" th:href="@{/}">W-informática</a>
+		<input class="form-control form-control-dark w-100" type="text"
+			placeholder="Procurar Usuarios" aria-label="Search">
+		<ul class="navbar-nav px-3">
+			<li class="nav-item text-nowrap"><a class="nav-link" href="#"
+				th:href="@{/logout}">Sair</a></li>
+		</ul>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+				<div class="sidebar-sticky">
+					<ul class="nav flex-column">
+						<li class="nav-item"><a class="nav-link disable" href="#"
+							th:href="@{/}"> <span data-feather="home"></span> Home
+						</a></li>
+						<div th:if="${role} == 'ADMIN' ">
+							<li class="nav-item"><a class="nav-link" href="#"
+								th:href="@{/cadastrar-usuario}"> <span data-feather="file"></span>
+									Cadastrar usuario
+							</a></li>
+							<li class="nav-item"><a class="nav-link" href="#"
+								th:href="@{/cadastrar-funcao}"> <span data-feather="file"></span>
+									Cadastrar função
+							</a></li>
+						</div>
+					</ul>
+
+					<h6
+						class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+						<span>Usuarios</span> <i class="fas fa-users"></i>
+					</h6>
+
+					<ul class="nav flex-column mb-2" th:each="user : ${users}">
+
+
+						<li class="nav-item" th:if="${user.username} != ${usuarioLogado}"><a
+							class="nav-link"
+							th:href="@{'/mensagem/detalhe/usuario=' + ${user.username} }">
+								<i class="fas fa-user"></i> <span th:text="${user.username}"></span>
+						</a></li>
+
+					</ul>
+				</div>
+			</nav>
+
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+			<div
+				class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+				<div layout:fragment="content"></div>
+			</div>
+			</main>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="/js/jquery-slim.min.js"><\/script>')
+	</script>
+	<script src="/js/vendor/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+
+	<!-- Icons -->
+	<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+	<script>
+		feather.replace()
+	</script>
+
+
+
+</body>
+</html>
