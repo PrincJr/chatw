@@ -16,6 +16,7 @@
 
 <script th:inline="javascript">
   /*<![CDATA[*/	  
+	   var context = [[@{/}]];
 	getMensagem([[${user}]] ,[[${usuarioLogado}]] );
 	var sizeOfArrray = ' ';
 	
@@ -45,7 +46,7 @@
 	
 		
 		$.ajax({	
-		url:"http://localhost:8080/mensagem/detalhe/json/",
+		url: context +"mensagem/detalhe/json/",
 		type:"post",
 		 contentType: "application/json",
 		//nome do post no servidor
@@ -111,7 +112,7 @@
 		$
 				.ajax({
 					dataType : 'json',
-					url : 'http://localhost:8080/mensagem/detalhe/json/usuario='
+					url :context + 'mensagem/detalhe/json/usuario='
 							+ user,
 					type : 'get',
 					success : function(result) {
