@@ -2,11 +2,23 @@ package com.chat.model;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name="mensagens")
 public class Mensage implements Comparable<Mensage> {
+	
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+
 
 	private String mensagem;
 
@@ -24,54 +36,37 @@ public class Mensage implements Comparable<Mensage> {
 	public Mensage() {
 	}
 
-	public String getId() {
+
+	public Long getId() {
 		return id;
 	}
-
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getMensagem() {
 		return mensagem;
 	}
-
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
-
 	public String getAuthor() {
 		return author;
 	}
-
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
-	public String getName() {
-		return author;
-	}
-
-	public void setName(String name) {
-		this.author = name;
-	}
-
 	public String getRecebedor() {
 		return recebedor;
 	}
-
 	public void setRecebedor(String recebedor) {
 		this.recebedor = recebedor;
 	}
-
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
 	@Override
 	public int compareTo(Mensage arg0) {
 		if (getData() == null || arg0.getData() == null)

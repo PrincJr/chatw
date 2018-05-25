@@ -203,12 +203,5 @@ public class ChatController {
 
 	}
 
-	@SuppressWarnings("deprecation")
-	@RequestMapping(value = "/messages", method = RequestMethod.GET)
-	public HttpEntity<List<Mensage>> list() {
-		List<Mensage> chatMessageModelList = chatMessageRepository
-				.findAll(new PageRequest(0, 5, Sort.Direction.DESC, "createDate")).getContent();
-		return new ResponseEntity<List<Mensage>>(chatMessageModelList, HttpStatus.OK);
-	}
 
 }

@@ -33,8 +33,9 @@ public class CadastroFuncaoController {
 	}
 	
 	@RequestMapping(value = "cadastrar-funcao"  , method = RequestMethod.POST)
-	public ModelAndView funcaoSalva(Funcao funcao) {
-		funcaoRepository.save(funcao);
+	public ModelAndView funcaoSalva(String funcao) {
+		Funcao funcao2 = new Funcao(funcao);
+		funcaoRepository.save(funcao2);
 		ModelAndView andView = new ModelAndView("redirect:/cadastrar-funcao");
 	
 		return andView;

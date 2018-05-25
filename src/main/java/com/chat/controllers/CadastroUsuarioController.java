@@ -20,8 +20,9 @@ import com.chat.repository.UsuarioRepository;
 @Controller
 public class CadastroUsuarioController {
 	
-	@Autowired FuncaoRepository funcaoRepository;
+	
 	@Autowired UsuarioRepository usuarioRepository;
+	@Autowired FuncaoRepository funcaoRepository;
 	
 	@RequestMapping(value = "cadastrar-usuario" , method = RequestMethod.GET)
 	public ModelAndView index() {
@@ -35,7 +36,7 @@ public class CadastroUsuarioController {
 		}
 		ModelAndView andView = new ModelAndView("cadastro-usuario");
 		andView.addObject("user", usuarioLogado);
-		List<Funcao> funcoes = funcaoRepository.findAll();
+		List<Funcao> funcoes = (List<Funcao>) funcaoRepository.findAll();
 		andView.addObject("funcoes", funcoes);
 		return andView;
 	}
