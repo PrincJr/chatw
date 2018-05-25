@@ -17,7 +17,7 @@
 <script th:inline="javascript">
   /*<![CDATA[*/	  
 	   var context = [[@{/}]];
-	getMensagem([[${user}]] ,[[${usuarioLogado}]] );
+	getMensagem([[${userID}]] ,[[${usuarioLogadoID}]] );
 	var sizeOfArrray = ' ';
 	
 	/*window.setTimeout(function() {
@@ -28,23 +28,25 @@
 	 
 	// Criando um intervalo
 	    var interval = setInterval(function () {
-	    	getMensagem([[${user}]] ,[[${usuarioLogado}]] , sizeOfArrray);
+	    	getMensagem([[${userID}]] ,[[${usuarioLogadoID}]] );
 	    	
 	    }, 1000/* 1s */);
 	function enviar(){
 
 		 //var usuario =
 		var mensagem = $('#mensagem-input').val();	
-		 var recebedor = [[${user}]] ;
-		 var author = [[${usuarioLogado}]] ;
+		 var recebedor = [[${userID}]] ;
+		 var author = [[${usuarioLogadoID}]] ;
 	
 		// PREPARE FORM DATA
     	var mensage = {
     			mensagem : mensagem,
-    			recebedor : recebedor
+    			recebedor : recebedor,
+    			author :author 
     	}
 	
-		
+    	document.getElementById("btn-enviar").disabled = true;
+    	document.getElementById("mensagem-input").value = "";
 		$.ajax({	
 		url: context +"mensagem/detalhe/json/",
 		type:"post",
@@ -55,6 +57,7 @@
 		success: function (result, status, request){	
 			var mensagens = ' ';
 			sizeOfArrray = result.length;
+			document.getElementById("btn-enviar").disabled = false;
 			$
 			.each(
 					result,
@@ -64,7 +67,7 @@
 							mensagens += '<div class="direct-chat-msg">'
 									+ ' <div class="direct-chat-info clearfix">'
 									+ '<span class="direct-chat-name float-left">'
-									+ V.author
+									+ [[${user}]]
 									+ '</span>'
 									+ '<span class="direct-chat-timestamp float-right">'
 									+ V.data
@@ -80,7 +83,7 @@
 							mensagens += '<div class="direct-chat-msg right">'
 									+ ' <div class="direct-chat-info clearfix">'
 									+ '<span class="direct-chat-name float-right">'
-									+ V.author
+									+  [[${usuarioLogado}]]
 									+ '</span>'
 									+ '<span class="direct-chat-timestamp float-lef">'
 									+ V.data
@@ -100,6 +103,7 @@
 		          error: function(result, status, request) {
 		                //retorno caso der erro
 		        	  console.log('Erro ' + request);
+		        	  document.getElementById("btn-enviar").disabled = false;
 		             }
 		});
 	}
@@ -112,7 +116,7 @@
 		$
 				.ajax({
 					dataType : 'json',
-					url :context + 'mensagem/detalhe/json/usuario='
+					url :context + 'mensagem/detalhe/json/id='
 							+ user,
 					type : 'get',
 					success : function(result) {
@@ -154,7 +158,7 @@
 						mensagens += '<div class="direct-chat-msg">'
 								+ ' <div class="direct-chat-info clearfix">'
 								+ '<span class="direct-chat-name float-left">'
-								+ V.author
+								+ [[${user}]]
 								+ '</span>'
 								+ '<span class="direct-chat-timestamp float-right">'
 								+ V.data
@@ -170,7 +174,7 @@
 						mensagens += '<div class="direct-chat-msg right">'
 								+ ' <div class="direct-chat-info clearfix">'
 								+ '<span class="direct-chat-name float-right">'
-								+ V.author
+								+ [[${usuarioLogado}]]
 								+ '</span>'
 								+ '<span class="direct-chat-timestamp float-lef">'
 								+ V.data

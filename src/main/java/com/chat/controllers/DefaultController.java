@@ -27,7 +27,7 @@ public class DefaultController {
 	}
 	@GetMapping("/layout")
 	public String layout() {
-		return "teste";
+		return "profile";
 	}
 
 }

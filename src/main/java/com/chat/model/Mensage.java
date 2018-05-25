@@ -22,11 +22,11 @@ public class Mensage implements Comparable<Mensage> {
 
 	private String mensagem;
 
-	private String author;
-	private String recebedor;
+	private Long author;
+	private Long recebedor;
 	private Date data;
 
-	public Mensage(String mensagem, String author, String recebedor, Date data) {
+	public Mensage(String mensagem, Long author, Long recebedor, Date data) {
 		// TODO Auto-generated constructor stub
 		this.mensagem = mensagem;
 		this.author = author;
@@ -35,8 +35,8 @@ public class Mensage implements Comparable<Mensage> {
 	}
 	public Mensage() {
 	}
-
-
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -49,16 +49,16 @@ public class Mensage implements Comparable<Mensage> {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	public String getAuthor() {
+	public Long getAuthor() {
 		return author;
 	}
-	public void setAuthor(String author) {
+	public void setAuthor(Long author) {
 		this.author = author;
 	}
-	public String getRecebedor() {
+	public Long getRecebedor() {
 		return recebedor;
 	}
-	public void setRecebedor(String recebedor) {
+	public void setRecebedor(Long recebedor) {
 		this.recebedor = recebedor;
 	}
 	public Date getData() {

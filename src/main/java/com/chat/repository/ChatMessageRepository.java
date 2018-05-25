@@ -11,7 +11,7 @@ public interface ChatMessageRepository extends CrudRepository<Mensage, Long> {
     List<Mensage> findAllByOrderByDataAsc();
     
   
-    List<Mensage> findByAuthorAndRecebedor(String author , String recebedor);
+    List<Mensage> findByAuthorAndRecebedor(Long author , Long recebedor);
     
     
 }

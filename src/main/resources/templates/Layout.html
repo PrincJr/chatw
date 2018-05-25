@@ -210,7 +210,7 @@
 						<li class="nav-header">Usuários</li>
 						<div th:each="user : ${users}">
 							<li class="nav-item" th:if="${user.username} != ${usuarioLogado}">
-								<a th:href="@{'/mensagem/detalhe/usuario=' + ${user.username} }"
+								<a th:href="@{'/mensagem/detalhe/id=' + ${user.id} }"
 								class="nav-link"> <i class="nav-icon fas fa-user"></i>
 									<p th:text="${user.username}">
 										<span class="badge badge-info right"></span>
