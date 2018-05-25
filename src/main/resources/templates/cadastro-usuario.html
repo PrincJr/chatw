@@ -60,7 +60,7 @@
 								requerida</div>
 						</div>
 					</div>
-					
+
 					<!-- <div class="mb-3">
 						 <label for="foto">Foto</label>
     
@@ -69,13 +69,14 @@
 						
 						</div>
 					</div> -->
-    <h4 class="mb-3">Limite</h4>
+					<h4 class="mb-3">Limite</h4>
 
-<div class="row">
+					<div class="row">
 						<div class="col-md-12 mb-6">
 							<label for="funcao">Limite usuario</label> <select
-								class="custom-select d-block w-100" id="authorities" name="authorities" required >
-								<option value="ADMIN" >Administrador</option>
+								class="custom-select d-block w-100" id="authorities"
+								name="authorities" required>
+								<option value="ADMIN">Administrador</option>
 								<option value="USER">USUARIO</option>
 							</select>
 							<div class="invalid-feedback">Insira uma função ao usuário
@@ -84,11 +85,12 @@
 
 					</div>
 					<div class="row">
-						<div class="col-md-12 mb-6" >
-							<label for="funcao"  >Função</label> <select
-								class="custom-select d-block w-100" id="funcao" name="funcao" required>
+						<div class="col-md-12 mb-6">
+							<label for="funcao">Função</label> <select
+								class="custom-select d-block w-100" id="funcao" name="funcao"
+								required>
 								<div th:each="funcao : ${funcoes}">
-								<option th:text="${funcao.funcao}"></option>
+									<option th:text="${funcao.funcao}"></option>
 								</div>
 							</select>
 							<div class="invalid-feedback">Insira uma função ao usuário
@@ -118,12 +120,11 @@
 	<script>
 		window.jQuery
 				|| document
-						.write(
-								'<script src="/js/vendor/jquery-slim.min.js"><\/script>')
+						.write('<script src="/js/vendor/jquery-slim.min.js"><\/script>')
 	</script>
 	<script src="/js/vendor/popper.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/vendor/holder.min.js"></script>
-	
+
 </body>
 </html>
