@@ -77,11 +77,15 @@
 
 	<build>
 		<plugins>
-		
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>1.3.2</version>
+				<configuration>
+					<project>
+						[PROJECT_ID]
+					</project>
+				</configuration>
 			</plugin>
 			<!-- https://mvnrepository.com/artifact/com.google.cloud.tools/appengine-maven-plugin -->
 			<plugin>
