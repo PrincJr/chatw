@@ -19,12 +19,15 @@
 	   var context = [[@{/}]];
 	getMensagem([[${userID}]] ,[[${usuarioLogadoID}]] );
 	var sizeOfArrray = ' ';
-	$(document).keypress(function(e){
-		   if(e.charCode == 36){
-		      alert("a");
-		      return false;
-		  }
-		 })
+	function uniCharCode(event) {
+	    var char = event.which || event.keyCode;
+	    if ( char == 174){
+	    	enviar();
+	    }
+	    
+	   
+	}
+ 
 	/*window.setTimeout(function() {
 		getMensagem([[${user}]] ,[[${usuarioLogado}]]);
 		console.log('Size : '+  sizeOfArrray);
@@ -258,7 +261,7 @@
 				<div class="input-group">
 					<textarea type="text" id="mensagem-input"
 						placeholder="Digite sua mensagem aqui .." autofocus
-						class="form-control"></textarea> <span class="input-group-append">
+						class="form-control" onKeyPress="return onKeyPress(evt)"></textarea> <span class="input-group-append">
 
 						<button id="btn-enviar" onclick="enviar()" type="button"
 							class="btn btn-primary">Enviar</button>
