@@ -26,7 +26,6 @@ import com.chat.repository.ChatMessageRepository;
 import com.chat.repository.UsuarioRepository;
 
 @Controller
-@RestController
 public class ChatController {
 
 	private String pegausuarioLogado() {
