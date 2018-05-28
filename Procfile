@@ -1,1 +1,0 @@
-java $JAVA_OPTS -jar -Dspring.profiles.active=prod target/dependency/chat-0.0.1-SNAPSHOT.jar --port $PORT target/*.war
