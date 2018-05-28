@@ -19,7 +19,7 @@
 	</parent>
 
 	<properties>
-	 <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
+		<full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring.boot.version>1.5.6.RELEASE</spring.boot.version> <!-- DO NOT UPDATE w/o MANUAL TESTING -->
@@ -86,22 +86,16 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
-				<groupId>com.heroku.sdk</groupId>
-				<artifactId>heroku-maven-plugin</artifactId>
-				<version>1.1.1</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
 				<configuration>
-					<appName>chat</appName>
-					<includeTarget>false</includeTarget>
-					<includes>
-						<include>${basedir}/${full-artifact-name}</include>
-					</includes>
-					<jdkVersion>1.8</jdkVersion>
-					<processTypes>
-						<web>java $JAVA_OPTS -jar ${full-artifact-name}</web>
-					</processTypes>
+					<finalName>${artifactId}</finalName>
 				</configuration>
 			</plugin>
+			
 			<!-- [START cloudplugin] -->
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
@@ -110,11 +104,22 @@
 				<configuration>
 				</configuration>
 			</plugin>
-			
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+
+		   <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                    <configuration>
+                        <finalName>${artifactId}</finalName>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 		</plugins>
 	</build>
 	<repositories>
